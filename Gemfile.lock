@@ -3,7 +3,7 @@ PATH
   specs:
     news_aggregator (0.1.0)
       faraday (~> 1.10.2)
-      faraday_middleware
+      faraday_middleware (~> 1.2)
 
 GEM
   remote: https://rubygems.org/
