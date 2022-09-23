@@ -6,8 +6,7 @@ module NewsAggregator
     require "net/http"
     require "json"
 
-    VERSION = "v2"
-    BASE_URL = "https://newsapi.org/#{VERSION}"
+    BASE_URL = "https://newsapi.org/v2"
 
     def initialize(api_key:)
       @api_key = api_key
