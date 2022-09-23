@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# Locate articles and breaking news headlines from news sources and blogs
-# across the web with our newsapi.org
+# Loads dependencies using lazy loading
 module NewsAggregator
   autoload(:News, "news_aggregator/news")
   autoload(:UnauthorizedException, "news_aggregator/exceptions")
