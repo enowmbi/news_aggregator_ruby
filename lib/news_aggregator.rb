@@ -9,5 +9,5 @@ module NewsAggregator
   autoload(:TooManyRequestsException, "news_aggregator/exceptions")
   autoload(:ServerException, "news_aggregator/exceptions")
   autoload(:Source, "news_aggregator/source")
-  autoload(:Everthing, "news_aggregator/everything")
+  autoload(:Everything, "news_aggregator/everything")
 end
