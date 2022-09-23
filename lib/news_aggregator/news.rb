@@ -1,15 +1,25 @@
 # frozen_string_literal: true
 
+require "faraday"
+require "faraday_middleware"
 module NewsAggregator
   # News class represents the newsapi api
   class News
-    require "net/http"
-    require "json"
-
     BASE_URL = "https://newsapi.org/v2"
+    attr_reader :api_key, :adapter
 
-    def initialize(api_key:)
+    def initialize(api_key:, adapter: Faraday.default_adapter)
       @api_key = api_key
+      @adapter = adapter
+    end
+
+    def connection
+      @connection ||= Faraday.new do |conn|
+        conn.url_prefix = BASE_URL
+        conn.request :json
+        conn.response :json, content_type: "application/json"
+        conn.adapter adapter
+      end
     end
 
     def top_headlines(**args)
@@ -25,7 +35,7 @@ module NewsAggregator
     def sources(**args)
       endpoint = "sources"
       request = _make_request(endpoint, **args)
-      status = request["status"]
+      # status = request["status"]
       sources = request["sources"]
       data = []
       sources.each do |v|
@@ -42,36 +52,27 @@ module NewsAggregator
 
     private
 
-    def _make_request(endpoint, **queries)
-      params = eval(queries.inspect)
-      uri = URI(_make_request_string(endpoint, params))
-      req = Net::HTTP::Get.new(uri)
-      req["X-Api-Key"] = @api_key
-      res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http| http.request(req) }
-      json = JSON.parse(res.body)
-      if res.code == '200'
-        return json
-      elsif res.code == '401'
-        raise UnauthorizedException, json
-      elsif res.code == '400'
-        raise BadRequestException, json
-      elsif res.code == '429' || res.code == '426'
-        raise TooManyRequestsException, json
-      elsif res.code == '500'
-        raise ServerException, json
+    def _make_request(endpoint, **query_params)
+      response = connection.get(endpoint, query_params, { authorization: "bearer #{api_key}" })
+      case response.status
+      when "200"
+        return response.body
+      when "401"
+        raise UnauthorizedException, response.body
+      when "400"
+        raise BadRequestException, response.body
+      when "429" || "426"
+        raise TooManyRequestsException, response.body
+      when "500"
+        raise ServerException, response.body
       end
-    end
-
-    def _make_request_string(endpoint, params)
-      url = BASE_URL + endpoint + '?'
-      params.each { |key, value| url += key.to_s + '=' + value.to_s + '&' }
-      url = url[0..-2]
+      response.body
     end
 
     def _get_everything(endpoint, **args)
       request = _make_request(endpoint, **args)
-      status = request['status']
-      totalResults = request['totalResults']
+      # status = request['status']
+      # totalResults = request['totalResults']
       articles = request["articles"]
       data = []
       articles.each do |a|
