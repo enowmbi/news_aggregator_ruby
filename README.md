@@ -1,6 +1,6 @@
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-community-brightgreen.svg)](https://rubystyle.guide)
-[![Ruby on Rails CI](https://github.com/enowmbi/news_aggregator_ruby/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/enowmbi/news_aggregator_ruby/actions/workflows/rubyonrails.yml)
+[![Ruby on Rails CI](https://github.com/enowmbi/news_aggregator_ruby/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/enowmbi/news_aggregator_ruby/actions/workflows/ruby.yml)
 [![GitHub Discussions](https://img.shields.io/github/discussions/news_aggregator_ruby?logo=github)](https://github.com/news_aggregator_ruby/discussions)
 
 # NewsAggregator
