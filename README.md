@@ -22,27 +22,27 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ### Initilisation
 
-``ruby
+```ruby
 require 'news_aggregator'
 
 n = NewsAggregator::News.new("api_key")
-``
+```
 
 ### Sources
 
-``ruby
+```ruby
 n.sources(country: 'us', language: 'en')
-``
+```
 
 ### Everything
 
-``ruby
+```ruby
 n.everything(q: "apple", from: "2018-01-05&to=2018-01-05", sortBy: "popularity")
-``
+```
 
 ### Top Headlines
 
-``ruby
+```ruby
 n.top_headlines(sources: "bbc-news")
 ```
 
