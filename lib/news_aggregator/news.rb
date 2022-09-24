@@ -3,7 +3,7 @@
 require "faraday"
 require "faraday_middleware"
 module NewsAggregator
-  # News class represents the newsapi api
+  # Locate articles and breaking news headlines from news sources and blogs across the web with newsapi.org
   class News
     BASE_URL = "https://newsapi.org/v2"
     attr_reader :api_key, :adapter
