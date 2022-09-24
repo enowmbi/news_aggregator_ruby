@@ -1,7 +1,6 @@
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-community-brightgreen.svg)](https://rubystyle.guide)
 [![Ruby on Rails CI](https://github.com/enowmbi/news_aggregator_ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/enowmbi/news_aggregator_ruby/actions/workflows/ruby.yml)
-[![GitHub Discussions](https://img.shields.io/github/discussions)](https://github.com/news_aggregator_ruby/discussions)
 
 # NewsAggregator
 
@@ -21,7 +20,31 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+### Initilisation
+
+``ruby
+require 'news_aggregator'
+
+n = NewsAggregator::News.new("api_key")
+``
+
+### Sources
+
+``ruby
+n.sources(country: 'us', language: 'en')
+``
+
+### Everything
+
+``ruby
+n.everything(q: "apple", from: "2018-01-05&to=2018-01-05", sortBy: "popularity")
+``
+
+### Top Headlines
+
+``ruby
+n.top_headlines(sources: "bbc-news")
+```
 
 ## Development
 
