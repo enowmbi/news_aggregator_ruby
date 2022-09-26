@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["Enow Mbi"]
   spec.email = ["benowmbi@yahoo.com"]
 
-  spec.summary = "newsapi SDK for ruby "
-  spec.description = "newsapi SDK for ruby"
+  spec.summary = "Newsapi SDK for ruby "
+  spec.description = "Get top news headlines from newsapi.org using Ruby"
   spec.homepage = "https://github.com/enowmbi/news_aggregator"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
