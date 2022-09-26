@@ -37,6 +37,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday", "~>1.10.2"
   spec.add_dependency "faraday_middleware", "~>1.2"
   spec.add_development_dependency "pry"
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
 end
