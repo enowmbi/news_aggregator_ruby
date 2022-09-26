@@ -4,6 +4,7 @@ module NewsAggregator
   # UnauthorizedException
   class UnauthorizedException < StandardError
     def initialize(json)
+      super
       puts json["message"]
     end
   end
@@ -11,6 +12,7 @@ module NewsAggregator
   # BadRequestException
   class BadRequestException < StandardError
     def initialize(json)
+      super
       puts json["message"]
     end
   end
@@ -18,6 +20,7 @@ module NewsAggregator
   # TooManyRequestException
   class TooManyRequestsException < StandardError
     def initialize(json)
+      super
       puts json["message"]
     end
   end
@@ -25,6 +28,7 @@ module NewsAggregator
   # ServerException
   class ServerException < StandardError
     def initialize(json)
+      super
       puts json["message"]
     end
   end
