@@ -22,27 +22,27 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ### Initilisation
 
-``ruby
+```ruby
 require 'news_aggregator'
 
 n = NewsAggregator::News.new("api_key")
-``
+```
 
 ### Sources
 
-``ruby
+```ruby
 n.sources(country: 'us', language: 'en')
-``
+```
 
 ### Everything
 
-``ruby
+```ruby
 n.everything(q: "apple", from: "2018-01-05&to=2018-01-05", sortBy: "popularity")
-``
+```
 
 ### Top Headlines
 
-``ruby
+```ruby
 n.top_headlines(sources: "bbc-news")
 ```
 
@@ -54,7 +54,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/news_aggregator. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/news_aggregator/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/enowmbi/news_aggregator. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/news_aggregator/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
