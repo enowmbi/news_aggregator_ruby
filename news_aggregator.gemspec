@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Newsapi SDK for ruby "
   spec.description = "Get top news headlines from newsapi.org using Ruby"
-  spec.homepage = "https://github.com/enowmbi/news_aggregator"
+  spec.homepage = "https://github.com/enowmbi/news_aggregator_ruby"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
