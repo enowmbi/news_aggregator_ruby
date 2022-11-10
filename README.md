@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/news_aggregator.svg)](https://badge.fury.io/rb/news_aggregator)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-community-brightgreen.svg)](https://rubystyle.guide)
 [![Ruby on Rails CI](https://github.com/enowmbi/news_aggregator_ruby/actions/workflows/ruby.yml/badge.svg)](https://github.com/enowmbi/news_aggregator_ruby/actions/workflows/ruby.yml)
