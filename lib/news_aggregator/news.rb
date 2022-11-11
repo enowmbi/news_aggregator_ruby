@@ -38,14 +38,8 @@ module NewsAggregator
       # status = request["status"]
       sources = request["sources"]
       data = []
-      sources.each do |v|
-        data.push(
-          Source.new(
-            v["id"], v["name"], v["description"],
-            v["url"], v["category"], v["language"],
-            v["country"]
-          )
-        )
+      sources.each do |source|
+        data.push(create_new_source(source))
       end
       data
     end
@@ -54,19 +48,25 @@ module NewsAggregator
 
     def _make_request(endpoint, **query_params)
       response = connection.get(endpoint, query_params, { authorization: "bearer #{api_key}" })
-      case response.status
-      when "200"
-        return response.body
-      when "401"
-        raise UnauthorizedException, response.body
-      when "400"
-        raise BadRequestException, response.body
-      when "429" || "426"
-        raise TooManyRequestsException, response.body
-      when "500"
-        raise ServerException, response.body
+
+      if response.status == "200"
+        response.body
+      else
+        raise_exception(response)
       end
       response.body
+    end
+
+    def raise_exception(response)
+      case response.status
+      when "400" then raise BadRequestException, response.body
+      when "401" then raise UnauthorizedException, response.body
+      when "402" then raise PaymentRequiredException, response.body
+      when "403" then raise ForbiddenException, response.body
+      # when "426" then raise TooManyRequestsException, response.body
+      when "429" then raise TooManyRequestsException, response.body
+      when "500" then raise ServerException, response.body
+      end
     end
 
     def _get_everything(endpoint, **args)
@@ -75,16 +75,28 @@ module NewsAggregator
       # totalResults = request['totalResults']
       articles = request["articles"]
       data = []
-      articles.each do |a|
-        data.push(
-          Everything.new(
-            a["source"], a["author"], a["title"],
-            a["description"], a["content"], a["url"],
-            a["urlToImage"], a["publishedAt"]
-          )
-        )
+      articles.each do |article|
+        data.push(create_everything(article))
       end
       data
+    end
+
+    def create_new_source(source)
+      Struct.new("Source", :id, :name, :description, :url, :category, :language, :country)
+      Struct::Source.new(
+        source["id"], source["name"], source["description"],
+        source["url"], source["category"], source["language"],
+        source["country"]
+      )
+    end
+
+    def create_everything(article)
+      Struct.new("Everything", :source, :author, :title, :description, :url, :url_to_image, :published_at, :content)
+      Struct::Everything.new(
+        article["source"], article["author"], article["title"],
+        article["description"], article["content"], article["url"],
+        article["urlToImage"], article["publishedAt"]
+      )
     end
   end
 end
