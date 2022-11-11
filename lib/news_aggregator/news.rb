@@ -2,10 +2,15 @@
 
 require "faraday"
 require "faraday_middleware"
+
+# NewsAggregator
 module NewsAggregator
   # Locate articles and breaking news headlines from news sources and blogs across the web with newsapi.org
   class News
     BASE_URL = "https://newsapi.org/v2"
+
+    END_POINTS = %w[top-headlines everything sources].freeze
+
     attr_reader :api_key, :adapter
 
     def initialize(api_key:, adapter: Faraday.default_adapter)
@@ -22,49 +27,31 @@ module NewsAggregator
       end
     end
 
-    def top_headlines(**args)
-      endpoint = "top-headlines"
-      _get_everything(endpoint, **args)
-    end
-
-    def everything(**args)
-      endpoint = "everything"
-      _get_everything(endpoint, **args)
-    end
-
-    def sources(**args)
-      endpoint = "sources"
-      request = _make_request(endpoint, **args)
-      request.data
-    end
-
-    private
-
-    def _make_request(endpoint, **query_params)
+    def make_request(endpoint, **query_params)
       response = connection.get(endpoint, query_params, { authorization: "bearer #{api_key}" })
 
-      if response.status == "200"
-        response.body
-      else
-        raise_exception(response)
-      end
-      response.body
+      return response.body if response.status == 200
+
+      raise_exception(response)
     end
 
-    def raise_exception(response)
-      case response.status
-      when "400" then raise BadRequestException, response.body
-      when "401" then raise UnauthorizedException, response.body
-      when "402" then raise PaymentRequiredException, response.body
-      when "403" then raise ForbiddenException, response.body
-      when "429" then raise TooManyRequestsException, response.body
-      when "500" then raise ServerException, response.body
+    END_POINTS.each do |end_point|
+      define_method(end_point.tr("/-", "_").to_sym) do |**args|
+        make_request(end_point, **args)
       end
     end
+  end
 
-    def _get_everything(endpoint, **args)
-      request = _make_request(endpoint, **args)
-      request.data
+  private
+
+  def raise_exception(response)
+    case response.status
+    when "400" then raise BadRequestException, response.body
+    when "401" then raise UnauthorizedException, response.body
+    when "402" then raise PaymentRequiredException, response.body
+    when "403" then raise ForbiddenException, response.body
+    when "429" then raise TooManyRequestsException, response.body
+    when "500" then raise ServerException, response.body
     end
   end
 end
